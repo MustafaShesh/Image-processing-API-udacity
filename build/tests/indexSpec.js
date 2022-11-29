@@ -75,7 +75,17 @@ describe("Test route responses", function () {
 });
 // test the image processing
 describe("Test image processing responses", function () {
-    it("gets the image processing ", function () {
-        expect(imageProcessing_1.default).toBeTruthy();
-    });
+    it("gets the image processing ", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = expect;
+                    return [4 /*yield*/, imageProcessing_1.default];
+                case 1:
+                    _a.apply(void 0, [_b.sent()]).not.toThrow();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });

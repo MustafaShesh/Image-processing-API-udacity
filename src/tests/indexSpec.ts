@@ -22,7 +22,7 @@ describe("Test route responses", () => {
 
 // test the image processing
 describe("Test image processing responses", () => {
-  it("gets the image processing ", () => {
-    expect(imageProcess).toBeTruthy();
+  it("gets the image processing ", async () => {
+    expect(await imageProcess).not.toThrow()
   })
 })
