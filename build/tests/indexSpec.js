@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
 var index_1 = __importDefault(require("../index"));
+var imageProcessing_1 = __importDefault(require("../utilities/imageProcessing"));
 var request = (0, supertest_1.default)(index_1.default);
 // test the endpoint
 describe("Test endpoint responses", function () {
@@ -57,9 +58,9 @@ describe("Test endpoint responses", function () {
         });
     }); });
 });
-// test the image processing
-describe("Test image processing responses", function () {
-    it("gets the image processing ", function () { return __awaiter(void 0, void 0, void 0, function () {
+// test the routes
+describe("Test route responses", function () {
+    it("gets the route ", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -71,4 +72,10 @@ describe("Test image processing responses", function () {
             }
         });
     }); });
+});
+// test the image processing
+describe("Test image processing responses", function () {
+    it("gets the image processing ", function () {
+        expect(imageProcessing_1.default).toBeTruthy();
+    });
 });
