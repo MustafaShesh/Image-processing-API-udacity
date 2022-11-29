@@ -42,45 +42,51 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
+var fs_1 = require("fs");
 var routes = express_1.default.Router();
 // define local directory for images
 var importImages = './images/full';
 var exportImages = './images/thumb';
 // define a route handler for the image processing
 routes.get('/images', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, width, height, imageName, thumbImageName, originalImgPath, thumbImgPath, result, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var width, height, imageName, thumbImageName, originalImgPath, thumbImgPath, result, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _a = req.query, width = _a.width, height = _a.height;
+                width = req.query.width;
+                height = req.query.height;
                 imageName = req.query.filename;
-                thumbImageName = "/".concat(imageName, "_").concat(width, "_").concat(height);
+                thumbImageName = "".concat(imageName, "_").concat(width, "_").concat(height, ".jpg");
                 originalImgPath = path_1.default.join(__dirname, ".".concat(importImages), "/".concat(imageName, ".jpg"));
-                thumbImgPath = path_1.default.join(__dirname, ".".concat(exportImages), "".concat(thumbImageName, ".jpg"));
-                _b.label = 1;
+                thumbImgPath = path_1.default.join(__dirname, ".".concat(exportImages), "/".concat(thumbImageName));
+                _a.label = 1;
             case 1:
-                _b.trys.push([1, 5, , 6]);
-                if (!(thumbImageName.thumbImgPath == thumbImgPath)) return [3 /*break*/, 2];
+                _a.trys.push([1, 5, , 6]);
+                if (!(0, fs_1.existsSync)(thumbImgPath)) return [3 /*break*/, 2];
                 res.sendFile(thumbImgPath);
                 return [3 /*break*/, 4];
             case 2: return [4 /*yield*/, (0, sharp_1.default)(originalImgPath)
                     .resize({ width: +width, height: +height })
                     .toFile(thumbImgPath)];
             case 3:
-                result = _b.sent();
+                result = _a.sent();
                 res.sendFile(thumbImgPath);
-                _b.label = 4;
+                _a.label = 4;
             case 4: return [3 /*break*/, 6];
             case 5:
-                error_1 = _b.sent();
+                error_1 = _a.sent();
                 // throw an error when any of the parameters is wrongly entered
                 if (width <= 0 || height <= 0) {
                     console.log("Image parameters is wrong! Try positve value");
                     res.send("Image parameters is wrong! Try positve value");
                 }
-                else if (width == null || height == null || imageName == '') {
+                else if (width != Number(width) || height != Number(height)) {
+                    console.log("Image parameters is wrong! Try entring numerical value");
+                    res.send("Image parameters is wrong! Try entring numerical value");
+                }
+                else if (imageName == '') {
                     console.log("Image parameters is missing! Try entring the value");
-                    res.send("Image parameters is missing! Try entring the value");
+                    res.send("Image name parameter is missing! Try entring the value");
                 }
                 else {
                     console.log("There is no image names ".concat(imageName));
