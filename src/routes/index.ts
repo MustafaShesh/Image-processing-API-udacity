@@ -10,9 +10,9 @@ const importImages: string = './images/full';
 const exportImages: string = './images/thumb';
 
 // define a route handler for the image processing
-routes.get('/images', async (req: any, res) => {
-  const width: number = req.query.width as number;
-  const height: number = req.query.height as number;
+routes.get('/images', async (req: express.Request, res: express.Response) => {
+  const width: string | number = req.query.width as string | number;
+  const height: string | number = req.query.height as string | number;
   const imageName: string = req.query.filename as string;
   const thumbImageName: string = `${imageName}_${width}_${height}.jpg` as string;
   const originalImgPath: string = path.join(__dirname, `.${importImages}`, `/${imageName}.jpg`) as string;
